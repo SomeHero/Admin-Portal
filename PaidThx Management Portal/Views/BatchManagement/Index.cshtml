@@ -1,0 +1,188 @@
+﻿@model PaidThx_Management_Portal.Models.BatchModels.IndexModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<div id="top-wrapper" style="position: relative; height: 60px">
+<div id="top-header" style="position: absolute; top: 0px; left: 0px;">
+    <h2>Batch Management</h2>
+</div>
+    <div id="select-batch" class="k-content" style="position: absolute; top: 0px; right: 0px;">
+        <div class="demo-section">
+            <input id="batches" style="width: 100%; background-color: none;" />
+        </div>
+    </div>
+</div>
+<div id="content">
+    <div id="content-header" style="height: 80px">
+        <div class="content-header-section" style="float: left; width: 20%">
+            <h5>
+                Batch Id</h5>
+                <span id="batchId">@Model.BatchId</span>
+        </div>
+        <div class="content-header-section" style="float: left; width: 20%">
+            <h5>
+                Deposits</h5>
+            <span>@Model.TotalNumberOfDeposits</span> - <span>@String.Format("{0:C}", Model.TotalDepositAmount)</span>
+        </div>
+        <div class="content-header-section" style="float: left; width: 20%">
+            <h5>
+                Withdrawals</h5>
+            <span>@Model.TotalNumberOfWithdrawals</span> - <span>@String.Format("{0:C}", Model.TotalWithdrawalAmount)</span>
+        </div>
+        <div class="content-header-section" style="float: left; width: 20%">
+            <h5>
+                Total Transactions</h5>
+            <span>@Model.TotalNumberOfTransactions</span> - <span>@String.Format("{0:C}", Model.TotalTransactionAmount)</span>
+        </div>
+        <div class="content-header-section" style="float: left; width: 20%">
+            <h3>@Model.BatchStatus</h3>
+        </div>
+    </div>
+    <span class="clear-fix:after">&nbsp;</span>
+    <div id="batch-statuses" style="height: 80px">
+        <div class="batch-status-section" style="float: left; width: 25%">
+            <h6>
+                Batch Opened</h6>
+            <span>@Model.BatchOpened</span>
+        </div>
+        <div class="batch-status-section" style="float: left; width: 25%">
+            <h6>
+                Batch Closed</h6>
+        </div>
+        <div class="batch-status-section" style="float: left; width: 25%">
+            <h6>
+                Batch Verified</h6>
+        </div>
+        <div class="batch-status-section" style="float: left; width: 25%">
+            <h6>
+                Batch Sent</h6>
+        </div>
+    </div>
+    <span class="clear-fix:after">&nbsp;</span>
+        <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div id="example" class="k-content">
+        <div id="myGrid">
+        </div>
+        <script>
+                $(document).ready(function () {
+                    
+                    var batchId = "@Model.BatchId";
+                    var webServiceUrl = "@Model.WebServicesBaseUrl/api/batches/" + batchId + "/transactions";
+
+                    var currentBatch = new kendo.data.DataSource({
+                        type: "json",
+                        serverPaging: true,
+                        serverSorting: true,
+                        pageSize: 10,
+                            transport: {
+                                read: {
+                                    url: webServiceUrl,
+                                    dataType: "json"
+                                }
+                            },
+                            schema: {
+                                data: "",
+                                model: {
+                                    id: "Id",
+                                    fields: {
+                                        ACHTransactionId: "string",
+                                        Amount: "double",
+                                        Category: "string",
+                                        CreateDate: "string",
+                                        Id: "string",
+                                        LastUpdatedDate: "string",
+                                        PaymentAccount: {
+                                            AccountNumber: "string",
+                                            AccountType: "string",
+                                            NameOnAccount: "string",
+                                            Id: "string",
+                                            Nickname: "string",
+                                            RoutingNumber: "string",
+                                        },
+                                        PaymentChannelType: "string",
+                                        StandardEntryClass: "string",
+                                        Status: "string",
+                                        Type: "string"
+                                    }
+                                }
+                            }
+                    });
+                    $("#batches").kendoDropDownList({
+                        dataTextField: "CreateDate",
+                        dataValueField: "Id",
+                        template: '${ data.CreateDate } - ${ data.ClosedDate }',
+                        dataSource: {
+                            type: "json",
+                            transport: {
+                                read: {
+                                    url: "@Model.WebServicesBaseUrl/api/batches/",
+                                    dataType: "json"
+                                }
+                            }
+                        },
+                        change: function(e) {
+                            webServiceUrl = "@Model.WebServicesBaseUrl/api/batches/" + this.dataItem().Id + "/transactions";
+                            currentBatch.transport.options.read.url = webServiceUrl;
+                            currentBatch.read();
+                        }
+
+                    });
+                    var grid = $("#myGrid").kendoGrid({
+                        dataSource: currentBatch,
+                        pageable: {
+                            refresh: true,
+                            pageSizes: true
+                        },
+                        editable: "popup",
+                        columns: [
+                            {
+                                field: "PaymentAccount.NameOnAccount",
+                                title: "Name on Account"
+                            },
+                            {
+                                field: "PaymentAccount.RoutingNumber",
+                                title: "Routing Number"
+                            },
+                            {
+                                field: "PaymentAccount.AccountNumber",
+                                title: "Account Number"
+                            },
+                            {
+                                field: "Type",
+                                title: "Transaction Type"
+                            },
+                            {
+                                field: "Amount",
+                                title: "Amount",
+                                format: "{0:C}"
+                            },
+                            {
+                                field: "ACHTransactionId",
+                                title: "ACH Transaction Id"
+                            },
+                            {
+                                field: "CreateDate",
+                                title: "Date/Time"
+                            },
+                            {
+                                command: ["details"], title: "&nbsp;", width: "60px" 
+                            }
+                        ],
+                        height: 280
+                    });
+
+                });
+                    
+        </script>
+
+    </div>
+</div>
+
+
+

@@ -1,0 +1,93 @@
+﻿@model PaidThx_Management_Portal.Models.UserModels.IndexModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>User Management</h2>
+
+<div id="content">
+    <div id="example" class="k-content">
+        <div id="myGrid">
+        </div>
+        <script>
+                $(document).ready(function () {
+
+                    var currentBatch = new kendo.data.DataSource({
+                        type: "json",
+                        serverPaging: true,
+                        serverSorting: true,
+                        pageSize: 10,
+                            transport: {
+                                read: {
+                                    url: "@Model.WebServicesBaseUrl/api/users",
+                                    dataType: "json"
+                                }
+                            },
+                            schema: {
+                                data: "Results",
+                                total: function (data) {
+                                    return data.TotalRecords;
+                                },
+                                model: {
+                                    id: "Id",
+                                    fields: {
+                                        createDate: "datetime",
+                                        imageUrl: "string",
+                                        instantLimit: "double",
+                                        isConfirmed: "boolean",
+                                        isLockedOut: "boolean",
+                                        lastLoggedIn: "datatime",
+                                        userId: "string",
+                                        userName: "string",
+                                        userStatus: "string"
+                                    }
+                                }
+                            }
+                    });
+                    var grid = $("#myGrid").kendoGrid({
+                        dataSource: currentBatch,
+                        pageable: {
+                            refresh: true,
+                            pageSizes: true
+                        },
+                        editable: "popup",
+                        columns: [
+                            {
+                                field: "userId",
+                                title: "UserId"
+                            },
+                            {
+                                field: "userName",
+                                title: "UserName"
+                            },
+                            {
+                                field: "userStatus",
+                                title: "Status"
+                            },
+                            {
+                                field: "lastLoggedIn",
+                                title: "Last Logged In"
+                            },
+                            {
+                                field: "instantLimit",
+                                title: "Instant Limit"
+                            },
+
+                            {
+                                field: "createDate",
+                                title: "SignUp Date"
+                            },
+                            {
+                                command: ["details"], title: "&nbsp;", width: "60px" 
+                            }
+                        ],
+                        height: 280
+                    });
+
+                });
+                    
+        </script>
+
+    </div>
+</div>
+

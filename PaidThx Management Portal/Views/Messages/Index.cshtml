@@ -1,0 +1,90 @@
+﻿@model PaidThx_Management_Portal.Models.MessageModels.IndexModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Payment Management</h2>
+
+ <div id="example" class="k-content">
+        <div id="myGrid">
+        </div>
+        <script>
+            $(document).ready(function () {
+
+                var currentBatch = new kendo.data.DataSource({
+                    type: "json",
+                    serverPaging: true,
+                    serverSorting: true,
+                    pageSize: 10,
+                    transport: {
+                        read: {
+                            url: "@Model.WebServicesBaseUrl/api/PaystreamMessages",
+                            dataType: "json"
+                        }
+                    },
+                    schema: {
+                        data: "Results",
+                        total: function (data) {
+                            return data.TotalRecords;
+                        },
+                        model: {
+                            id: "Id",
+                            fields: {
+                                amount: "double",
+                                comment: "string",
+                                createDate: "string",
+                                Id: "string",
+                                lastUpdateDate: "string",
+                                latitude: "double",
+                                longitude: "double",
+                                messageStatus: "string",
+                                recipientUri: "string",
+                                senderUri: "string"
+                            }
+                        }
+                    }
+                });
+                var grid = $("#myGrid").kendoGrid({
+                    dataSource: currentBatch,
+                    editable: "popup",
+                    pageable: {
+                        refresh: true,
+                        pageSizes: true
+                    },
+
+                    columns: [
+                            {
+                                field: "Id",
+                                title: "Id"
+                            },
+                            {
+                                field: "amount",
+                                title: "Amount",
+                                format: "{0:C}"
+                            },
+                            {
+                                field: "senderUri",
+                                title: "Sender URI"
+                            },
+                            {
+                                field: "recipientUri",
+                                title: "Recipient URI"
+                            },
+                            {
+                                field: "createDate",
+                                title: "Date Submitted"
+                            },
+                            {
+                                command: ["details"], title: "&nbsp;", width: "60px"
+                            }
+                        ],
+                    height: 280
+                });
+
+            });
+                    
+        </script>
+
+    </div>
+</div>
