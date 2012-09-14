@@ -18,6 +18,7 @@ namespace PaidThx_Management_Portal.Controllers
     public class AccountController : Controller
     {
 
+
         //
         // GET: /Account/Login
 
