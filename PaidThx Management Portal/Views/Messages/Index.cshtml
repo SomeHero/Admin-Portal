@@ -9,51 +9,60 @@
  <div id="example" class="k-content">
         <div id="myGrid">
         </div>
-        <script>
-            $(document).ready(function () {
+       
 
-                var currentBatch = new kendo.data.DataSource({
-                    type: "json",
-                    serverPaging: true,
-                    serverSorting: true,
-                    pageSize: 10,
-                    transport: {
-                        read: {
-                            url: "@Model.WebServicesBaseUrl/api/PaystreamMessages",
-                            dataType: "json"
-                        }
-                    },
-                    schema: {
-                        data: "Results",
-                        total: function (data) {
-                            return data.TotalRecords;
-                        },
-                        model: {
-                            id: "Id",
-                            fields: {
-                                amount: "double",
-                                comment: "string",
-                                createDate: "string",
-                                Id: "string",
-                                lastUpdateDate: "string",
-                                latitude: "double",
-                                longitude: "double",
-                                messageStatus: "string",
-                                recipientUri: "string",
-                                senderUri: "string"
-                            }
-                        }
-                    }
-                });
-                var grid = $("#myGrid").kendoGrid({
-                    dataSource: currentBatch,
-                    editable: "popup",
-                    pageable: {
-                        refresh: true,
-                        pageSizes: true
-                    },
+    </div>
+</div>
+			<!-- sidebar -->
+            <a href="javascript:void(0)" class="sidebar_switch on_switch ttip_r" title="Hide Sidebar">Sidebar switch</a>            
+@section sidebar {
 
-                    columns: [
+}  
+@section pagescripts{             <script>
+                 $(document).ready(function () {
+
+                     var currentBatch = new kendo.data.DataSource({
+                         type: "json",
+                         serverPaging: true,
+                         serverSorting: true,
+                         pageSize: 10,
+                         transport: {
+                             read: {
+                                 url: "@Model.WebServicesBaseUrl/api/PaystreamMessages",
+                                 dataType: "json"
+                             }
+                         },
+                         schema: {
+                             data: "Results",
+                             total: function (data) {
+                                 return data.TotalRecords;
+                             },
+                             model: {
+                                 id: "Id",
+                                 fields: {
+                                     amount: "double",
+                                     comment: "string",
+                                     createDate: "string",
+                                     Id: "string",
+                                     lastUpdateDate: "string",
+                                     latitude: "double",
+                                     longitude: "double",
+                                     messageStatus: "string",
+                                     recipientUri: "string",
+                                     senderUri: "string"
+                                 }
+                             }
+                         }
+                     });
+                     var grid = $("#myGrid").kendoGrid({
+                         dataSource: currentBatch,
+                         editable: "popup",
+                         pageable: {
+                             refresh: true,
+                             pageSizes: true
+                         },
+
+                         columns: [
                             {
                                 field: "Id",
                                 title: "Id"
@@ -78,13 +87,9 @@
                             {
                                 command: ["details"], title: "&nbsp;", width: "60px"
                             }
-                        ],
-                    height: 280
-                });
+                        ]
+                     });
 
-            });
+                 });
                     
-        </script>
-
-    </div>
-</div>
+        </script>            }

@@ -1,59 +1,322 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PaidThx Admin Portal | @ViewBag.Title</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/css")" rel="stylesheet" type="text/css" />
-        <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/themes/base/css")" rel="stylesheet" type="text/css" />
+
+        <!-- Bootstrap framework -->
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/bootstrap.min.css")" />
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/bootstrap-responsive.min.css")" />
+        <!-- gebo green theme-->
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/eastern_blue.css")" id="link_theme" />
+        <!-- breadcrumbs-->
+            <link rel="stylesheet" href="@Url.Content("~/lib/jBreadcrumbs/css/BreadCrumb.css")" />
+        <!-- tooltips-->
+            <link rel="stylesheet" href="@Url.Content("~/lib/qtip2/jquery.qtip.min.css")" />
+        <!-- colorbox -->
+            <link rel="stylesheet" href="@Url.Content("~/lib/colorbox/colorbox.css")" />    
+        <!-- code prettify -->
+            <link rel="stylesheet" href="@Url.Content("~/lib/google-code-prettify/prettify.css")" />    
+        <!-- notifications -->
+            <link rel="stylesheet" href="@Url.Content("~/lib/sticky/sticky.css")" />   
+         <!-- calendar -->
+            <link rel="stylesheet" href="@Url.Content("~/lib/fullcalendar/fullcalendar_gebo.css")" /> 
+        <!-- splashy icons -->
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/splashy.css")" />
+		<!-- flags -->
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/flags.css")" />	
+		
+        
+        <!-- JQUERY -->
+         <script type="text/javascript" src="@Url.Content("~/Scripts/js/jquery.min.js")"></script>
+
         <!-- Kendo UI Web styles -->
         <link href="@Url.Content("~/Content/styles/kendo.common.min.css")" rel="stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/styles/kendo.default.min.css")" rel="stylesheet" type="text/css" />
 
+        <!-- custom styles -->
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/style.css")" />
+            <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
+	
+        <!-- Favicon -->
+            <link rel="shortcut icon" href="favicon.ico" />
+
+     
+
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="css/ie.css" />
+            <script src="@Url.Content("~/Scripts/ie/html5.js")"></script>
+			<script src="@Url.Content("~/Scripts/ie/respond.min.js")"></script>
+			<script src="@Url.Content("~/lib/flot/excanvas.min.js")"></script>
+        <![endif]-->
+		<script type="text/javascript">
+		 document.documentElement.className += 'js';
+		</script>
         <!-- Kendo UI Web scripts -->
-        <script src="@Url.Content("~//Scripts/js/jquery.min.js")"></script>
-        <script src="@Url.Content("~/Scripts/js/kendo.web.min.js")"></script>
-         <script src="@Url.Content("~/Scripts/js/context-menu.js")"></script>
-        <meta name="viewport" content="width=device-width" />
+        <script type="text/javascript" src="@Url.Content("~/Scripts/js/kendo.web.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/js/context-menu.js")"></script>
     </head>
-    <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title"><img src="@Url.Content("~/images/logo.gif")" /></p>
+    <body class="menu_hover @ViewBag.Classes" id="@ViewBag.PageID">
+    <div id="loading_layer" style="display:none"><img src="@Url.Content("~/img/ajax_loader.gif")" alt="Loading..." /></div>
+
+    <div id="maincontainer">
+    <!-- header -->
+            <header>
+                <div class="navbar navbar-fixed-top">
+                    <div class="navbar-inner">
+                        <div class="container-fluid">
+                            <a class="brand" href="@Url.Content("~/")"><i class="icon-home icon-white"></i> PaidThx Admin</a>
+                            <ul class="nav user_menu pull-right">
+                                <li class="hidden-phone hidden-tablet">
+                                    <!--<div class="nb_boxes clearfix">
+                                        <a data-toggle="modal" data-backdrop="static" href="#myMail" class="label ttip_b" title="New messages">NA <i class="splashy-mail_light"></i></a>
+                                        <a data-toggle="modal" data-backdrop="static" href="#myTasks" class="label ttip_b" title="New tasks">NA <i class="splashy-calendar_week"></i></a>
+                                    </div>-->
+                                </li>
+                                 <li class="divider-vertical hidden-phone hidden-tablet"></li>
+                                @if (Request.IsAuthenticated)
+                                {
+                    <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="img/user_avatar.png" alt="@User.Identity.Name" class="user_avatar" /> @User.Identity.Name <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+										<li><a href="@Url.Action("ChangePassword", "Account", new { id = "username" })">Change Password</a></li>
+										<li class="divider"></li>
+										<li>@Html.ActionLink("Log off", "LogOff", "Account")</li>
+                                    </ul>
+                                </li>                
+                                }
+                                else
+                                {                             
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="img/user_avatar.png" alt="" class="user_avatar" />Signed Out<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+										<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", data_dialog_title = "Registration" })</li>
+										<li class="divider"></li>
+										<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", data_dialog_title = "Identification" })</li>
+                                    </ul>
+                                </li>
+                                }
+                            </ul>
+							<a data-target=".nav-collapse" data-toggle="collapse" class="btn_menu">
+								<span class="icon-align-justify icon-white"></span>
+							</a>
+                            <nav>
+                                <div class="nav-collapse">
+                                    <ul class="nav">
+                                        <li class="dropdown">
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="@Url.Content("~/UserManagement")"><i class="icon-user icon-white"></i> Users <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#">Find a user</a></li>
+                                                <li><a href="#">User data</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="@Url.Content("~/BatchManagement")"><i class="icon-random icon-white"></i> Payments <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="@Url.Content("~/BatchManagement")">Batches</a></li>
+                                                <li><a href="@Url.Content("~/Messages")">Paystream</a></li>
+                                                <li><a href="#">Processing</a></li>
+                                            </ul>
+                                        </li>
+                                        <li >
+                                            <a href="#"><i class="icon-signal icon-white"></i> Data </a>
+                         
+                                        </li>
+                                        <li class="dropdown">
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-heart icon-white"></i> Customer Support <b class="caret"></b></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a target="_blank" href="https://paidthx.zendesk.com/tickets/new">Create Ticket</a></li>
+                                                <li><a target="_blank" href="https://paidthx.zendesk.com/search">Find Ticket</a></li>
+                                             </ul>
+                                        </li>
+                                        <li>
+                                        </li>
+                                                </ul>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
+                <div class="modal hide fade" id="myMail">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">×</button>
+                        <h3>New messages</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info">In this table jquery plugin turns a table row into a clickable link.</div>
+                        <table class="table table-condensed table-striped" data-rowlink="a">
+                            <thead>
+                                <tr>
+                                    <th>Sender</th>
+                                    <th>Subject</th>
+                                    <th>Date</th>
+                                    <th>Size</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Declan Pamphlett</td>
+                                    <td><a href="javascript:void(0)">Lorem ipsum dolor sit amet</a></td>
+                                    <td>23/05/2012</td>
+                                    <td>25KB</td>
+                                </tr>
+                                <tr>
+                                    <td>Erin Church</td>
+                                    <td><a href="javascript:void(0)">Lorem ipsum dolor sit amet</a></td>
+                                    <td>24/05/2012</td>
+                                    <td>15KB</td>
+                                </tr>
+                                <tr>
+                                    <td>Koby Auld</td>
+                                    <td><a href="javascript:void(0)">Lorem ipsum dolor sit amet</a></td>
+                                    <td>25/05/2012</td>
+                                    <td>28KB</td>
+                                </tr>
+                                <tr>
+                                    <td>Anthony Pound</td>
+                                    <td><a href="javascript:void(0)">Lorem ipsum dolor sit amet</a></td>
+                                    <td>25/05/2012</td>
+                                    <td>33KB</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0)" class="btn">Go to mailbox</a>
+                    </div>
                 </div>
-            </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
-        </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                <div class="modal hide fade" id="myTasks">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">×</button>
+                        <h3>New Tasks</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info">In this table jquery plugin turns a table row into a clickable link.</div>
+                        <table class="table table-condensed table-striped" data-rowlink="a">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Summary</th>
+                                    <th>Updated</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>P-23</td>
+                                    <td><a href="javascript:void(0)">Admin should not break if URL&hellip;</a></td>
+                                    <td>23/05/2012</td>
+                                    <td class="tac"><span class="label label-important">High</span></td>
+                                    <td>Open</td>
+                                </tr>
+                                <tr>
+                                    <td>P-18</td>
+                                    <td><a href="javascript:void(0)">Displaying submenus in custom&hellip;</a></td>
+                                    <td>22/05/2012</td>
+                                    <td class="tac"><span class="label label-warning">Medium</span></td>
+                                    <td>Reopen</td>
+                                </tr>
+                                <tr>
+                                    <td>P-25</td>
+                                    <td><a href="javascript:void(0)">Featured image on post types&hellip;</a></td>
+                                    <td>22/05/2012</td>
+                                    <td class="tac"><span class="label label-success">Low</span></td>
+                                    <td>Updated</td>
+                                </tr>
+                                <tr>
+                                    <td>P-10</td>
+                                    <td><a href="javascript:void(0)">Multiple feed fixes and&hellip;</a></td>
+                                    <td>17/05/2012</td>
+                                    <td class="tac"><span class="label label-warning">Medium</span></td>
+                                    <td>Open</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0)" class="btn">Go to task manager</a>
+                    </div>
                 </div>
-                <div class="float-right">
-                    <ul id="social">
-                        <li><a href="http://facebook.com" class="facebook">Facebook</a></li>
-                        <li><a href="http://twitter.com" class="twitter">Twitter</a></li>
-                    </ul>
-                </div>
-            </div>
-        </footer>
+            </header>
+   
+    
+
+    <div id="contentwrapper">
+      <div class="main_content">
+      @RenderBody()
+      <br /><br />
+      <hr style="color:#f8f8f8;" />
+      <p>&copy; @DateTime.Now.Year - PaidThx - Don't tell anyone what you saw here.</p>
+      </div>
+
+    </div>
+    <div class="sidebar">
+    @RenderSection("sidebar", required: false)
+    
+    </div>
+    
+      
+  </div>
+			<!-- smart resize event -->
+			<script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.debouncedresize.min.js")"></script>
+			<!-- hidden elements width/height -->
+			<script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.actual.min.js")"></script>
+			<!-- js cookie plugin -->
+			<script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.cookie.min.js")"></script>
+			<!-- main bootstrap js -->
+			<script type="text/javascript" src="@Url.Content("~/lib/bootstrap/js/bootstrap.min.js")"></script>
+			<!-- tooltips -->
+			<script type="text/javascript" src="@Url.Content("~/lib/qtip2/jquery.qtip.min.js")"></script>
+			<!-- jBreadcrumbs -->
+			<script type="text/javascript" src="@Url.Content("~/lib/jBreadcrumbs/js/jquery.jBreadCrumb.1.1.min.js")"></script>
+			<!-- lightbox -->
+            <script type="text/javascript" src="@Url.Content("~/lib/colorbox/jquery.colorbox.min.js")"></script>
+            <!-- fix for ios orientation change -->
+			<script type="text/javascript" src="@Url.Content("~/Scripts/gebo/ios-orientationchange-fix.js")"></script>
+			<!-- scrollbar -->
+			<script type="text/javascript" src="@Url.Content("~/lib/antiscroll/antiscroll.js")"></script>
+			<script type="text/javascript" src="@Url.Content("~/lib/antiscroll/jquery-mousewheel.js")"></script>
+			<!-- to top -->
+			<script type="text/javascript" src="@Url.Content("~/lib/UItoTop/jquery.ui.totop.min.js")"></script>
+			<!-- common functions -->
+			<script type="text/javascript" src="@Url.Content("~/Scripts/gebo/gebo_common.js")"></script>
+			
+			<script type="text/javascript" src="@Url.Content("~/lib/jquery-ui/jquery-ui-1.8.20.custom.min.js")"></script>
+            <!-- touch events for jquery ui-->
+            <script type="text/javascript" src="@Url.Content("~/Scripts/forms/jquery.ui.touch-punch.min.js")"></script>
+            <!-- multi-column layout -->
+            <script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.imagesloaded.min.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.wookmark.js")"></script>
+            <!-- responsive table -->
+            <script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.mediaTable.min.js")"></script>
+            <!-- small charts -->
+            <script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.peity.min.js")"></script>
+            <!-- charts -->
+
+            <script type="text/javascript" src="@Url.Content("~/lib/flot/jquery.flot.min.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/lib/flot/jquery.flot.resize.min.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/lib/flot/jquery.flot.pie.min.js")"></script>
+
+            <!-- calendar -->
+            <script type="text/javascript" src="@Url.Content("~/lib/fullcalendar/fullcalendar.min.js")"></script>
+            <!-- sortable/filterable list -->
+            <script type="text/javascript" src="@Url.Content("~/lib/list_js/list.min.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/lib/list_js/plugins/paging/list.paging.min.js")"></script>
+            <!-- dashboard functions -->
+
+            
+  
+
+    @RenderSection("pagescripts", required: false)
+
+			<script type="text/javascript">
+			    $(document).ready(function () {
+			        //* show all elements & remove preloader
+			        setTimeout('$("html").removeClass("js")', 1000);
+			    });
+			</script>
     </body>
 </html>

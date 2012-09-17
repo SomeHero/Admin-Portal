@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>PaidThx Admin Portal | @ViewBag.Title</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+        <!-- Bootstrap framework -->
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/bootstrap.min.css")" />
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/bootstrap-responsive.min.css")" />
+        <!-- gebo green theme-->
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/eastern_blue.css")" id="link_theme" />
+        <!-- breadcrumbs-->
+            <link rel="stylesheet" href="@Url.Content("~/lib/jBreadcrumbs/css/BreadCrumb.css")" />
+        <!-- tooltips-->
+            <link rel="stylesheet" href="@Url.Content("~/lib/qtip2/jquery.qtip.min.css")" />
+        <!-- colorbox -->
+            <link rel="stylesheet" href="@Url.Content("~/lib/colorbox/colorbox.css")" />    
+        <!-- code prettify -->
+            <link rel="stylesheet" href="@Url.Content("~/lib/google-code-prettify/prettify.css")" />    
+        <!-- notifications -->
+            <link rel="stylesheet" href="@Url.Content("~/lib/sticky/sticky.css")" />   
+         <!-- calendar -->
+            <link rel="stylesheet" href="@Url.Content("~/lib/fullcalendar/fullcalendar_gebo.css")" /> 
+        <!-- splashy icons -->
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/splashy.css")" />
+		<!-- flags -->
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/flags.css")" />	
+		
+        
+        <!-- JQUERY -->
+         <script type="text/javascript" src="@Url.Content("~/Scripts/js/jquery.min.js")"></script>
+
+        <!-- Kendo UI Web styles -->
+        <link href="@Url.Content("~/Content/styles/kendo.common.min.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/styles/kendo.default.min.css")" rel="stylesheet" type="text/css" />
+
+        <!-- custom styles -->
+            <link rel="stylesheet" href="@Url.Content("~/Content/styles/css/style.css")" />
+            <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
+	
+        <!-- Favicon -->
+            <link rel="shortcut icon" href="favicon.ico" />
+
+     
+
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="css/ie.css" />
+            <script src="@Url.Content("~/Scripts/ie/html5.js")"></script>
+			<script src="@Url.Content("~/Scripts/ie/respond.min.js")"></script>
+			<script src="@Url.Content("~/lib/flot/excanvas.min.js")"></script>
+        <![endif]-->
+		<script type="text/javascript">
+		 document.documentElement.className += 'js';
+		</script>
+        <!-- Kendo UI Web scripts -->
+        <script type="text/javascript" src="@Url.Content("~/Scripts/js/kendo.web.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/js/context-menu.js")"></script>
+    </head>
+    <body class="@ViewBag.Classes" id="@ViewBag.PageID">
+    <div id="loading_layer" style="display:none"><img src="@Url.Content("~/img/ajax_loader.gif")" alt="Loading..." /></div>
+
+
+      @RenderBody()
+
+
+			<!-- smart resize event -->
+			<script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.debouncedresize.min.js")"></script>
+			<!-- hidden elements width/height -->
+			<script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.actual.min.js")"></script>
+			<!-- js cookie plugin -->
+			<script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.cookie.min.js")"></script>
+			<!-- main bootstrap js -->
+			<script type="text/javascript" src="@Url.Content("~/lib/bootstrap/js/bootstrap.min.js")"></script>
+			<!-- tooltips -->
+			<script type="text/javascript" src="@Url.Content("~/lib/qtip2/jquery.qtip.min.js")"></script>
+			<!-- jBreadcrumbs -->
+			<script type="text/javascript" src="@Url.Content("~/lib/jBreadcrumbs/js/jquery.jBreadCrumb.1.1.min.js")"></script>
+			<!-- lightbox -->
+            <script type="text/javascript" src="@Url.Content("~/lib/colorbox/jquery.colorbox.min.js")"></script>
+            <!-- fix for ios orientation change -->
+			<script type="text/javascript" src="@Url.Content("~/Scripts/gebo/ios-orientationchange-fix.js")"></script>
+			<!-- scrollbar -->
+			<script type="text/javascript" src="@Url.Content("~/lib/antiscroll/antiscroll.js")"></script>
+			<script type="text/javascript" src="@Url.Content("~/lib/antiscroll/jquery-mousewheel.js")"></script>
+			<!-- to top -->
+			<script type="text/javascript" src="@Url.Content("~/lib/UItoTop/jquery.ui.totop.min.js")"></script>
+			<!-- common functions -->
+			<script type="text/javascript" src="@Url.Content("~/Scripts/gebo/gebo_common.js")"></script>
+			
+			<script type="text/javascript" src="@Url.Content("~/lib/jquery-ui/jquery-ui-1.8.20.custom.min.js")"></script>
+            <!-- touch events for jquery ui-->
+            <script type="text/javascript" src="@Url.Content("~/Scripts/forms/jquery.ui.touch-punch.min.js")"></script>
+            <!-- multi-column layout -->
+            <script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.imagesloaded.min.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.wookmark.js")"></script>
+            <!-- responsive table -->
+            <script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.mediaTable.min.js")"></script>
+            <!-- small charts -->
+            <script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.peity.min.js")"></script>
+            <!-- charts -->
+
+            <script type="text/javascript" src="@Url.Content("~/lib/flot/jquery.flot.min.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/lib/flot/jquery.flot.resize.min.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/lib/flot/jquery.flot.pie.min.js")"></script>
+
+            <!-- calendar -->
+            <script type="text/javascript" src="@Url.Content("~/lib/fullcalendar/fullcalendar.min.js")"></script>
+            <!-- sortable/filterable list -->
+            <script type="text/javascript" src="@Url.Content("~/lib/list_js/list.min.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/lib/list_js/plugins/paging/list.paging.min.js")"></script>
+            <!-- dashboard functions -->
+
+            <script type="text/javascript" src="@Url.Content("~/lib/validation/jquery.validate.min.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+    @RenderSection("pagescripts", required: false)
+
+			<script type="text/javascript">
+			    $(document).ready(function () {
+			        //* show all elements & remove preloader
+			        setTimeout('$("html").removeClass("js")', 1000);
+			    });
+			</script>
+
+    </body>
+</html>

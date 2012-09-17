@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace PaidThx_Management_Portal
@@ -43,15 +42,6 @@ namespace PaidThx_Management_Portal
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            var bundle = new Bundle("~/Content/styles", new CssMinify());
-            bundle.AddDirectory("~/Content/styles", "*.css", true);
-            BundleTable.Bundles.Add(bundle);
-
-            bundle = new Bundle("~/Scripts/js", new JsMinify());
-            bundle.AddDirectory("~/Scripts/js", "*.js", true);
-            BundleTable.Bundles.Add(bundle);
-
-            BundleTable.Bundles.RegisterTemplateBundles();
         }
     }
 }

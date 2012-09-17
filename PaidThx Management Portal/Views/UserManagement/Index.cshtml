@@ -9,85 +9,102 @@
     <div id="example" class="k-content">
         <div id="myGrid">
         </div>
-        <script>
-                $(document).ready(function () {
+        
 
-                    var currentBatch = new kendo.data.DataSource({
-                        type: "json",
-                        serverPaging: true,
-                        serverSorting: true,
-                        pageSize: 10,
-                            transport: {
-                                read: {
-                                    url: "@Model.WebServicesBaseUrl/api/users",
-                                    dataType: "json"
-                                }
-                            },
-                            schema: {
-                                data: "Results",
-                                total: function (data) {
-                                    return data.TotalRecords;
-                                },
-                                model: {
-                                    id: "Id",
-                                    fields: {
-                                        createDate: "datetime",
-                                        imageUrl: "string",
-                                        instantLimit: "double",
-                                        isConfirmed: "boolean",
-                                        isLockedOut: "boolean",
-                                        lastLoggedIn: "datatime",
-                                        userId: "string",
-                                        userName: "string",
-                                        userStatus: "string"
-                                    }
-                                }
-                            }
-                    });
-                    var grid = $("#myGrid").kendoGrid({
-                        dataSource: currentBatch,
-                        pageable: {
-                            refresh: true,
-                            pageSizes: true
-                        },
-                        editable: "popup",
-                        columns: [
+    </div>
+</div>
+
+			<!-- sidebar -->
+            <a href="javascript:void(0)" class="sidebar_switch on_switch ttip_r" title="Hide Sidebar">Sidebar switch</a>            
+@section sidebar {
+
+}    
+@section pagescripts{
+<script>
+    $(document).ready(function () {
+
+        var currentBatch = new kendo.data.DataSource({
+            type: "json",
+            serverPaging: true,
+            serverSorting: true,
+            pageSize: 10,
+            transport: {
+                read: {
+                    url: "@Model.WebServicesBaseUrl/api/users",
+                    dataType: "json"
+                }
+            },
+            schema: {
+                data: "Results",
+                total: function (data) {
+                    return data.TotalRecords;
+                },
+                model: {
+                    id: "Id",
+                    fields: {
+                        createDate: "datetime",
+                        imageUrl: "string",
+                        instantLimit: "double",
+                        isConfirmed: "boolean",
+                        isLockedOut: "boolean",
+                        lastLoggedIn: "datatime",
+                        userId: "string",
+                        userName: "string",
+                        userStatus: "string"
+                    }
+                }
+            }
+        });
+        var grid = $("#myGrid").kendoGrid({
+            dataSource: currentBatch,
+            pageable: {
+                refresh: true,
+                pageSizes: true
+            },
+            editable: "popup",
+            sortable: true,
+            resizable: true,
+            pageable: true,
+            columns: [
                             {
                                 field: "userId",
-                                title: "UserId"
+                                width:90,
+                                title: "User Id"
                             },
                             {
                                 field: "userName",
-                                title: "UserName"
+                                width: 90,
+                                title: "User Name"
                             },
                             {
                                 field: "userStatus",
+                                width: 40,
                                 title: "Status"
                             },
                             {
                                 field: "lastLoggedIn",
+                                width: 40,
                                 title: "Last Logged In"
                             },
                             {
                                 field: "instantLimit",
+                                width: 40,
                                 title: "Instant Limit"
                             },
 
                             {
                                 field: "createDate",
-                                title: "SignUp Date"
+                                width: 40,
+                                title: "Member Since"
                             },
                             {
-                                command: ["details"], title: "&nbsp;", width: "60px" 
+                                command: ["details"], title: "&nbsp;", width: "60px"
                             }
-                        ],
-                        height: 280
-                    });
+                        ]
+        });
 
-                });
+    });
                     
         </script>
 
-    </div>
-</div>
-
+}
