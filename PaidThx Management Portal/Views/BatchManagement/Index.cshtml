@@ -143,38 +143,44 @@
                         columns: [
                             {
                                 field: "PaymentAccount.NameOnAccount",
+                                width: 90,
                                 title: "Name on Account"
                             },
                             {
                                 field: "PaymentAccount.RoutingNumber",
+                                width: 60,
                                 title: "Routing Number"
                             },
                             {
                                 field: "PaymentAccount.AccountNumber",
+                                width: 60,
                                 title: "Account Number"
                             },
                             {
                                 field: "Type",
+                                width: 60,
                                 title: "Transaction Type"
                             },
                             {
                                 field: "Amount",
+                                width: 60,
                                 title: "Amount",
                                 format: "{0:C}"
                             },
                             {
                                 field: "ACHTransactionId",
+                                width: 60,
                                 title: "ACH Transaction Id"
                             },
                             {
                                 field: "CreateDate",
+                                width: 110,
                                 title: "Date/Time"
                             },
                             {
                                 command: ["details"], title: "&nbsp;", width: "60px" 
                             }
-                        ],
-                        height: 280
+                        ]
                     });
 
                 });
