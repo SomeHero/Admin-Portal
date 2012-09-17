@@ -71,7 +71,7 @@ namespace PaidThx_Management_Portal.Controllers
 
                 return View("Index", new BatchModels.IndexModel()
                 {
-                    WebServicesBaseUrl = "http://23.21.203.171/api/internal",
+                    WebServicesBaseUrl = internalAPIUrl,
                     BatchClosed = null,
                     BatchId = myObj.Id,
                     BatchOpened = System.DateTime.Now.AddHours(-2),

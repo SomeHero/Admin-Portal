@@ -7,6 +7,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Beta|Any CPU = Beta|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		Dev|Any CPU = Dev|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -14,6 +15,8 @@ Global
 		{A4CAEE99-F8A3-4A4E-8732-962921676CDB}.Beta|Any CPU.Build.0 = Beta|Any CPU
 		{A4CAEE99-F8A3-4A4E-8732-962921676CDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A4CAEE99-F8A3-4A4E-8732-962921676CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4CAEE99-F8A3-4A4E-8732-962921676CDB}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{A4CAEE99-F8A3-4A4E-8732-962921676CDB}.Dev|Any CPU.Build.0 = Dev|Any CPU
 		{A4CAEE99-F8A3-4A4E-8732-962921676CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4CAEE99-F8A3-4A4E-8732-962921676CDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
