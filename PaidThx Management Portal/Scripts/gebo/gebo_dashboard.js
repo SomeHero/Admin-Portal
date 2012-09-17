@@ -66,176 +66,187 @@
 	};
 
 	//* charts
-    gebo_charts = {
-        fl_1: function() {
-            // Setup the placeholder reference
-            elem = $('#fl_1');
-            var sin = [], cos = [];
-            for (var i = 0; i < 14; i += 0.5) {
-                sin.push([i, Math.sin(i)]);
-                cos.push([i, Math.cos(i)]);
-            }
-            // Setup the flot chart using our data
-            $.plot(elem, 
+	gebo_charts = {
+	    fl_1: function () {
+
+
+	        // Function to get the Maximam value in Array
+	        Array.max = function (array) {
+	            return Math.max.apply(Math, array);
+	        };
+
+	        // Function to get the Minimam value in Array
+	        Array.min = function (array) {
+	            return Math.min.apply(Math, array);
+	        };
+
+	        // Setup the placeholder reference
+	        elem = $('#fl_1');
+	        var ru = [], eu = [];
+	        for (var i = 0; i < 30; i += 1) {
+	            ru.push([i, i * 200]);
+	            eu.push([i, i * 50]);
+	        }
+	        // Setup the flot chart using our data
+
+	        $.plot(elem,
                 [
-                    { label: "sin(x)",  data: sin},
-                    { label: "cos(x)",  data: cos}
-                ], 
+                    { label: "Registered Users", data: ru },
+                    { label: "Engaged Users", data: eu }
+                ],
                 {
                     lines: { show: true },
                     points: { show: true },
-                    yaxis: { min: -1.2, max: 1.2 },
+                    yaxis: { min: 0, max: 9000 },
                     grid: {
                         hoverable: true,
                         borderWidth: 1
                     },
-					colors: [ "#8cc7e0", "#2d83a6" ]
+                    colors: ["#8cc7e0", "#2d83a6"]
                 }
             );
-            // Create a tooltip on our chart
-            elem.qtip({
-                prerender: true,
-                content: 'Loading...', // Use a loading message primarily
-                position: {
-                    viewport: $(window), // Keep it visible within the window if possible
-                    target: 'mouse', // Position it in relation to the mouse
-                    adjust: { x: 8, y: -30 } // ...but adjust it a bit so it doesn't overlap it.
-                },
-                show: false, // We'll show it programatically, so no show event is needed
-                style: {
-                    classes: 'ui-tooltip-shadow ui-tooltip-tipsy',
-                    tip: false // Remove the default tip.
-                }
-            });
-         
-            // Bind the plot hover
-            elem.on('plothover', function(event, coords, item) {
-                // Grab the API reference
-                var self = $(this),
+	        // Create a tooltip on our chart
+	        elem.qtip({
+	            prerender: true,
+	            content: 'Loading...', // Use a loading message primarily
+	            position: {
+	                viewport: $(window), // Keep it visible within the window if possible
+	                target: 'mouse', // Position it in relation to the mouse
+	                adjust: { x: 8, y: -30} // ...but adjust it a bit so it doesn't overlap it.
+	            },
+	            show: false, // We'll show it programatically, so no show event is needed
+	            style: {
+	                classes: 'ui-tooltip-shadow ui-tooltip-tipsy',
+	                tip: false // Remove the default tip.
+	            }
+	        });
+
+	        // Bind the plot hover
+	        elem.on('plothover', function (event, coords, item) {
+	            // Grab the API reference
+	            var self = $(this),
                     api = $(this).qtip(),
                     previousPoint, content,
-         
-                // Setup a visually pleasing rounding function
-                round = function(x) { return Math.round(x * 1000) / 1000; };
-         
-                // If we weren't passed the item object, hide the tooltip and remove cached point data
-                if(!item) {
-                    api.cache.point = false;
-                    return api.hide(event);
-                }
-         
-                // Proceed only if the data point has changed
-                previousPoint = api.cache.point;
-                if(previousPoint !== item.dataIndex)
-                {
-                    // Update the cached point data
-                    api.cache.point = item.dataIndex;
-         
-                    // Setup new content
-                    content = item.series.label + '(' + round(item.datapoint[0]) + ') = ' + round(item.datapoint[1]);
-         
-                    // Update the tooltip content
-                    api.set('content.text', content);
-         
-                    // Make sure we don't get problems with animations
-                    //api.elements.tooltip.stop(1, 1);
-         
-                    // Show the tooltip, passing the coordinates
-                    api.show(coords);
-                }
-            });
-        },
-        fl_2 : function() {
-            // Setup the placeholder reference
-            elem = $('#fl_2');
-           
-			var data = [
+
+	            // Setup a visually pleasing rounding function
+                round = function (x) { return Math.round(x * 1000) / 1000; };
+
+	            // If we weren't passed the item object, hide the tooltip and remove cached point data
+	            if (!item) {
+	                api.cache.point = false;
+	                return api.hide(event);
+	            }
+
+	            // Proceed only if the data point has changed
+	            previousPoint = api.cache.point;
+	            if (previousPoint !== item.dataIndex) {
+	                // Update the cached point data
+	                api.cache.point = item.dataIndex;
+
+	                // Setup new content
+	                content = item.series.label + '(' + round(item.datapoint[0]) + ') = ' + round(item.datapoint[1]);
+
+	                // Update the tooltip content
+	                api.set('content.text', content);
+
+	                // Make sure we don't get problems with animations
+	                //api.elements.tooltip.stop(1, 1);
+
+	                // Show the tooltip, passing the coordinates
+	                api.show(coords);
+	            }
+	        });
+	    },
+	    fl_2: function () {
+	        // Setup the placeholder reference
+	        elem = $('#fl_2');
+
+	        var data = [
 				{
-					label: "iPhone App",
-					data: 400
+				    label: "iPhone App",
+				    data: 400
 				},
 				{
-					label: "Android App",
-					data: 360
+				    label: "Android App",
+				    data: 360
 				},
                 {
-					label: "Web Only",
-					data: 320
-				}
+                    label: "Web Only",
+                    data: 320
+                }
 			];
-			
-			// Setup the flot chart using our data
-            $.plot(elem, data,         
+
+	        // Setup the flot chart using our data
+	        $.plot(elem, data,
                 {
-					label: "Users by access",
+                    label: "Users by access",
                     series: {
                         pie: {
                             show: true,
-							highlight: {
-								opacity: 0.2
-							}
+                            highlight: {
+                                opacity: 0.2
+                            }
                         }
                     },
                     grid: {
                         hoverable: true,
                         clickable: true
                     },
-					//colors: [ "#b3d3e8", "#8cbddd", "#65a6d1", "#3e8fc5", "#3073a0", "#245779", "#183b52" ]
-					colors: [ "#b4dbeb", "#8cc7e0", "#64b4d5", "#3ca0ca", "#2d83a6", "#22637e", "#174356", "#0c242e" ]
+                    //colors: [ "#b3d3e8", "#8cbddd", "#65a6d1", "#3e8fc5", "#3073a0", "#245779", "#183b52" ]
+                    colors: ["#b4dbeb", "#8cc7e0", "#64b4d5", "#3ca0ca", "#2d83a6", "#22637e", "#174356", "#0c242e"]
                 }
             );
-            // Create a tooltip on our chart
-            elem.qtip({
-                prerender: true,
-                content: 'Loading...', // Use a loading message primarily
-                position: {
-                    viewport: $(window), // Keep it visible within the window if possible
-                    target: 'mouse', // Position it in relation to the mouse
-                    adjust: { x: 7 } // ...but adjust it a bit so it doesn't overlap it.
-                },
-                show: false, // We'll show it programatically, so no show event is needed
-                style: {
-                    classes: 'ui-tooltip-shadow ui-tooltip-tipsy',
-                    tip: false // Remove the default tip.
-                }
-            });
-         
-            // Bind the plot hover
-            elem.on('plothover', function(event, pos, obj) {
-                
-                // Grab the API reference
-                var self = $(this),
+	        // Create a tooltip on our chart
+	        elem.qtip({
+	            prerender: true,
+	            content: 'Loading...', // Use a loading message primarily
+	            position: {
+	                viewport: $(window), // Keep it visible within the window if possible
+	                target: 'mouse', // Position it in relation to the mouse
+	                adjust: { x: 7} // ...but adjust it a bit so it doesn't overlap it.
+	            },
+	            show: false, // We'll show it programatically, so no show event is needed
+	            style: {
+	                classes: 'ui-tooltip-shadow ui-tooltip-tipsy',
+	                tip: false // Remove the default tip.
+	            }
+	        });
+
+	        // Bind the plot hover
+	        elem.on('plothover', function (event, pos, obj) {
+
+	            // Grab the API reference
+	            var self = $(this),
                     api = $(this).qtip(),
                     previousPoint, content,
-         
-                // Setup a visually pleasing rounding function
-                round = function(x) { return Math.round(x * 1000) / 1000; };
-         
-                // If we weren't passed the item object, hide the tooltip and remove cached point data
-                if(!obj) {
-                    api.cache.point = false;
-                    return api.hide(event);
-                }
-         
-                // Proceed only if the data point has changed
-                previousPoint = api.cache.point;
-                if(previousPoint !== obj.seriesIndex)
-                {
-                    percent = parseFloat(obj.series.percent).toFixed(2);
-                    // Update the cached point data
-                    api.cache.point = obj.seriesIndex;
-                    // Setup new content
-                    content = obj.series.label + ' ( ' + percent + '% )';
-                    // Update the tooltip content
-                    api.set('content.text', content);
-                    // Make sure we don't get problems with animations
-                    //api.elements.tooltip.stop(1, 1);
-                    // Show the tooltip, passing the coordinates
-                    api.show(pos);
-                }
-            });
-        }
-    };
+
+	            // Setup a visually pleasing rounding function
+                round = function (x) { return Math.round(x * 1000) / 1000; };
+
+	            // If we weren't passed the item object, hide the tooltip and remove cached point data
+	            if (!obj) {
+	                api.cache.point = false;
+	                return api.hide(event);
+	            }
+
+	            // Proceed only if the data point has changed
+	            previousPoint = api.cache.point;
+	            if (previousPoint !== obj.seriesIndex) {
+	                percent = parseFloat(obj.series.percent).toFixed(2);
+	                // Update the cached point data
+	                api.cache.point = obj.seriesIndex;
+	                // Setup new content
+	                content = obj.series.label + ' ( ' + percent + '% )';
+	                // Update the tooltip content
+	                api.set('content.text', content);
+	                // Make sure we don't get problems with animations
+	                //api.elements.tooltip.stop(1, 1);
+	                // Show the tooltip, passing the coordinates
+	                api.show(pos);
+	            }
+	        });
+	    }
+	};
 
 	//* filterable list
 	gebo_flist = {

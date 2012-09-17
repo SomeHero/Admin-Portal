@@ -79,7 +79,7 @@
                                 @if (Request.IsAuthenticated)
                                 {
                     <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="img/user_avatar.png" alt="" class="user_avatar" /> @User.Identity.Name <b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="img/user_avatar.png" alt="@User.Identity.Name" class="user_avatar" /> @User.Identity.Name <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
 										<li><a href="@Url.Action("ChangePassword", "Account", new { id = "username" })">Change Password</a></li>
 										<li class="divider"></li>
@@ -106,17 +106,17 @@
                                 <div class="nav-collapse">
                                     <ul class="nav">
                                         <li class="dropdown">
-                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-user icon-white"></i> Users <b class="caret"></b></a>
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="@Url.Content("~/UserManagement")"><i class="icon-user icon-white"></i> Users <b class="caret"></b></a>
                                             <ul class="dropdown-menu">
                                                 <li><a href="#">Find a user</a></li>
                                                 <li><a href="#">User data</a></li>
                                             </ul>
                                         </li>
                                         <li class="dropdown">
-                                            <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-random icon-white"></i> Payments <b class="caret"></b></a>
+                                            <a data-toggle="dropdown" class="dropdown-toggle" href="@Url.Content("~/BatchManagement")"><i class="icon-random icon-white"></i> Payments <b class="caret"></b></a>
                                             <ul class="dropdown-menu">
                                                 <li><a href="@Url.Content("~/BatchManagement")">Batches</a></li>
-                                                <li><a href="#">Paystream</a></li>
+                                                <li><a href="@Url.Content("~/Messages")">Paystream</a></li>
                                                 <li><a href="#">Processing</a></li>
                                             </ul>
                                         </li>
@@ -127,10 +127,9 @@
                                         <li class="dropdown">
                                             <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-heart icon-white"></i> Customer Support <b class="caret"></b></a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="">Create Ticket</a></li>
-                                                <li><a href="">Find Ticket</a></li>
-                                                <li><a href=""></a></li>
-                                            </ul>
+                                                <li><a target="_blank" href="https://paidthx.zendesk.com/tickets/new">Create Ticket</a></li>
+                                                <li><a target="_blank" href="https://paidthx.zendesk.com/search">Find Ticket</a></li>
+                                             </ul>
                                         </li>
                                         <li>
                                         </li>
@@ -248,17 +247,18 @@
     <div id="contentwrapper">
       <div class="main_content">
       @RenderBody()
-
-
+      <br /><br />
+      <hr style="color:#f8f8f8;" />
+      <p>&copy; @DateTime.Now.Year - PaidThx - Don't tell anyone what you saw here.</p>
       </div>
 
-      <p>&copy; @DateTime.Now.Year - PaidThx Admin</p>
     </div>
     <div class="sidebar">
     @RenderSection("sidebar", required: false)
     
     </div>
-
+    
+      
   </div>
 			<!-- smart resize event -->
 			<script type="text/javascript" src="@Url.Content("~/Scripts/gebo/jquery.debouncedresize.min.js")"></script>
